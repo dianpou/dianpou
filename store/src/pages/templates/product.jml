@@ -1,0 +1,59 @@
+import {lang, price} from 'lib/intl';
+export default function(){ return (
+  <div className="container">
+    <section className="content-header">
+      <h1>
+        {this.state.model.product_name}
+        <small></small>
+      </h1>
+    </section>
+    <section className="content">
+      <div className="box box-default">
+        <div className="box-body">
+          <div className="row">
+            <div className="col-md-8">
+              <div className="fotorama" data-height="600" data-nav="thumbs" data-thumbmargin="10" data-thumbfit="scaledown">
+                {this.photos.map((photo, i)=>{
+                  return <a key={i} href={photo.file.file_path}><img src={photo.file.file_path} /></a>;
+                })}
+              </div>
+            </div>
+            <div className="col-md-4">
+              <h1>{this.state.model.product_name}</h1>
+              <h3>{this.price}</h3>
+              {(this.state.model.options||[]).map((option, i)=>{
+                return (
+                  <div key={i} className="product-options">
+                    <h4>
+                    {option.name}
+                    </h4>
+                    <RadioGroup name={"option." + i} selectedValue={this.state.selected.option[i]} onChange={this.handleOptionChange.bind(this, i)}>
+                      {Radio => (
+                        <div className="items">
+                          {option.options.map((v, j)=>{
+                            return <label key={j}><Radio value={v} className="hide" /><span>{v}</span></label>;
+                          })}
+                        </div>
+                      )}
+                    </RadioGroup>
+                  </div>
+                );
+              })}
+              <div>
+                <ReactBootstrap.Button onClick={this.handleAddToBag.bind(this)} bsSize="large" bsStyle="success" disabled={!this.state.selected.stock.stocks} block>
+                  <i className="ion-bag"></i>&nbsp;{lang('add_to_bag')}
+                </ReactBootstrap.Button>
+                <div style={{margin:"10px 0px"}}>
+                  {lang('current_stocks')}:{this.state.selected.stock.stocks || 0}
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <h2>{lang('product.desc')}</h2>
+          <div dangerouslySetInnerHTML={{__html:this.state.model.product_desc}}></div>
+        </div>
+      </div>
+    </section>
+  </div>
+);}

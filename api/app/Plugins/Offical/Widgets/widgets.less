@@ -1,0 +1,187 @@
+.offical.header {
+  padding:0px;
+  line-height: 50px;
+  position: relative;
+  background: #fff;
+  opacity:0.8;
+  z-index: 999;
+  h1 {
+    margin:0;
+    line-height: 50px;
+    font-size:1.5em;
+    a {
+      color:#000;
+    }
+  }
+  small { margin-left:10px; }
+  .nav-links {
+    text-align: right;
+    li {
+      display:inline-block;
+      margin-left:15px;
+      a {
+        font-size: 0.8em;
+        color:#333;
+      }
+      a.active {
+        color:#666;
+      }
+      a.btn {
+        color:#fff;
+      }
+    }
+  }
+}
+.offical.header.fixed {
+  position:fixed;
+  width:100%;
+  top:50px;
+}
+.widgets-container {
+  figure {
+    video, img {
+      max-width:100%;
+    }
+  }
+  .product-selector {
+    background-color: #fff;
+    .product-title {
+      h1 {
+        font-size:4em;
+      }
+      text-align:center;
+      margin-bottom:30px;
+    }
+    .stocks-scrollbar {
+      &.container {
+        padding:0px;
+      }
+      height:2px;
+      background:#eee;
+      .scroll-bar {
+        height:2px;
+        background:#333;
+        position:relative;
+      }
+    }
+    .stocks {
+      width:100%;
+      // overflow:hidden;
+      overflow-x:scroll;
+      ul {
+        position:relative;
+        white-space: nowrap;
+        padding:0px;
+        li {
+          width:300px;
+          height: 450px;
+          display:inline-block;
+          margin:10px;
+          padding:5px 30px;
+          background:#fff;
+          text-align:center;
+          img {
+            max-width:100%;
+            max-height:300px;
+          }
+          h3 {
+            font-size:1.5em;
+            white-space: normal;
+          }
+          p.price {
+            color:#888;
+          }
+        }
+      }
+    }
+  }
+  .offical {
+    &.widget {
+      padding:30px 0px;
+    }
+    &.widget.fp-section {
+      padding:0px;
+    }
+    &.product-picker {
+      background-color: #fff;
+      .btn-success {
+        color:#fff;
+      }
+    }
+    &.image-park-text{
+      .text {
+        width:60%;
+        text-align:left;
+        margin:auto;
+      }
+    }
+    &.items-below-text {
+      .container {
+        text-align: center;
+      }
+      &.avatar {
+        background-color: white;
+        ul {
+          li {
+            display:inline-block;
+            margin:10px 30px;
+            img {
+              border-radius:50%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-fade .carousel-inner .item {
+    opacity: 0;
+    transition-property: opacity;
+  }
+
+  .carousel-fade .carousel-inner .active {
+    opacity: 1;
+  }
+
+  .carousel-fade .carousel-inner .active.left,
+  .carousel-fade .carousel-inner .active.right {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .carousel-fade .carousel-inner .next.left,
+  .carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+  }
+
+  .carousel-fade .carousel-control {
+    z-index: 2;
+  }
+
+  /*
+    WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+    Need to override the 3.3 new styles for modern browsers & apply opacity
+  */
+  @media all and (transform-3d), (-webkit-transform-3d) {
+      .carousel-fade .carousel-inner > .item.next,
+      .carousel-fade .carousel-inner > .item.active.right {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+      }
+      .carousel-fade .carousel-inner > .item.prev,
+      .carousel-fade .carousel-inner > .item.active.left {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+      }
+      .carousel-fade .carousel-inner > .item.next.left,
+      .carousel-fade .carousel-inner > .item.prev.right,
+      .carousel-fade .carousel-inner > .item.active {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+      }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "dianpou",
+  "version": "0.1.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "loadcss": "~0.1.7",
+    "slick-carousel": "~1.5.8",
+    "ionicons": "~2.0.1",
+    "AdminLTE": "https://github.com/garbin/AdminLTE.git#master",
+    "bootstrap-daterangepicker": "~2.0.5",
+    "ckeditor": "~4.5.3",
+    "jquery.rest": "~1.0.2",
+    "jquery.scrollTo": "~2.1.1"
+  }
+}

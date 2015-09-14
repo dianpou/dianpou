@@ -1,0 +1,10 @@
+#node_modules
+#bower_components
+#api/vendor
+#*/node_modules
+#*/node_modules
+
+api/storage/app
+api/.env
+admin/src/config.js
+store/src/config.js

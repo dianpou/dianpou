@@ -1,0 +1,70 @@
+import {Button, Input} from 'react-bootstrap';
+import Image from 'lib/image';
+import {Table, Column} from 'lib/table';
+import Loader from 'lib/loader';
+import {NumberPicker} from 'react-widgets';
+import {lang, price, date} from 'lib/intl';
+
+export default function(){ return (
+  <div className="container">
+    <section className="content-header">
+      <h1>
+        {lang('bag.title')}
+        <small>{lang('bag.item_count', {total:this.state.bags.items.length})}</small>
+      </h1>
+    </section>
+    <section className="content">
+      <div className="box box-default">
+        <div className="box-body">
+          <Loader loaded={this.state.bags.loaded} className="loading-bar table">
+            <div>
+              <Table rows={this.state.bags.items} rowKey="id" className="table table-striped">
+                <Column title={lang('product.name')}>
+                  {row=>(
+                    <div className="media">
+                      <div className="media-left">
+                        <a href="#">
+                          <Image src={_.get(row, 'stock.cover.file.file_path')} size="small" />
+                        </a>
+                      </div>
+                      <div className="media-body">
+                        <h4 className="media-heading">{row.product.product_name}</h4>
+                        <p>{row.stock.option}</p>
+                      </div>
+                    </div>
+                  )}
+                </Column>
+                <Column title={lang('bag.quantity')} width="100">
+                  {row=>(
+                    <NumberPicker min={1} onChange={this.handleQuantityChange.bind(this, row)} defaultValue={row.quantity} />
+                  )}
+                </Column>
+                <Column title={lang('bag.price')} width="100">
+                  {row=>price(row.stock.price)}
+                </Column>
+                <Column title={lang('bag.subtotal')} width="100">
+                  {row=>price(row.stock.price * row.quantity)}
+                </Column>
+                <Column title={lang('operations')} width="100">
+                  {row=>(
+                    <a href="#" onClick={this.handleRemoveClick.bind(this, row)}>{lang('delete')}</a>
+                  )}
+                </Column>
+              </Table>
+              <div className="row">
+                <div className="col-md-6"></div>
+                <div className="col-md-6 text-right">
+                  <p><strong>{lang('checkout.total_amount')}:</strong>{price(this.subtotalProduct)}</p>
+                  <hr />
+                  <p>
+                    <Link className="btn btn-success btn-large" to="/checkout">{lang('checkout.title')}</Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Loader>
+        </div>
+      </div>
+    </section>
+  </div>
+);}

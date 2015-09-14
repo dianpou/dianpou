@@ -1,0 +1,129 @@
+import {Form, Input, Select, Button} from '../components/form';
+import Image from 'lib/image';
+
+export function show() {return (
+  <section className="invoice" style={{margin:0}}>
+    <div>
+      <div className="row">
+        <div className="col-xs-12">
+          <h2 className="page-header">
+            <i className="fa fa-globe"></i>
+            &nbsp;&nbsp;&nbsp;
+            {lang('refund.status.'+this.state.model.refund_status)}
+            <small className="pull-right">{lang('refund.created_at')}:&nbsp;&nbsp;&nbsp;{date(this.state.model.created_at)}</small>
+          </h2>
+        </div>
+      </div>
+      <div className="row invoice-info">
+      <div className="col-sm-4 invoice-col">
+        <b>{lang('refund.order_sn')}&nbsp;&nbsp;&nbsp;#{this.state.model.order.sn}</b><br/>
+        <br/>
+        <b>{lang('order.total_amount')}:</b>&nbsp;&nbsp;&nbsp;{price(this.state.model.order.total_amount)} <br />
+        <b>{lang('order.status.name')}:</b>&nbsp;&nbsp;&nbsp;{lang('order.status.' + this.state.model.order.order_status, null, false)}<br/>
+      </div>
+      <div className="col-sm-4 invoice-col">
+      </div>
+      <div className="col-sm-4 invoice-col">
+        <b>{lang('refund.sn')}&nbsp;&nbsp;&nbsp;#{this.state.model.sn}</b><br/>
+        <br/>
+        <b>{lang('refund.user_id')}:</b>&nbsp;&nbsp;&nbsp;
+        <Link to="users.show" params={{id:this.state.model.user_id}}>
+          @{this.state.model.user.nickname}
+        </Link>
+        <br />
+        <b>{lang('refund.id')}:</b>&nbsp;&nbsp;&nbsp;{this.state.model.id}<br/>
+      </div>
+      </div>
+
+
+    <div className="row">
+      <div className="col-xs-12 table-responsive">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>{lang('product.name')}</th>
+              <th width="130">{lang('product.sku')}</th>
+              <th width="90">{lang('bag.price')}</th>
+              <th width="90">{lang('bag.quantity')}</th>
+              <th width="90">{lang('bag.subtotal')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.model.products.map((product, i)=>{
+              return (
+                <tr key={i}>
+                  <td>
+                    <div className="media">
+                      <div className="media-left">
+                        <a href="#">
+                          <Image size="mini" src={product.product.cover} />
+                        </a>
+                      </div>
+                      <div className="media-body" style={{width:'auto'}}>
+                        <h4 className="media-heading">{product.product.product_name}</h4>
+                        {product.product.option}
+                      </div>
+                    </div>
+                  </td>
+                  <td vAlign="middle">{product.product.sku}</td>
+                  <td>{price(product.product.price)}</td>
+                  <td>{product.quantity}</td>
+                  <td>{price(product.product.price * product.quantity)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className="row">
+
+      <div className="col-xs-6">
+        <p className="lead">{lang('refund.payment')}</p>
+        <p>
+          <b>{lang('refund.status.payment')}:</b>&nbsp;&nbsp;{lang('refund.status.'+this.state.model.payment_status)}<br/>
+          <b>{lang('refund.payment_time')}:</b>&nbsp;&nbsp;{date(this.state.model.payment_time) || 'N/A'}<br/>
+        </p>
+      </div>
+      <div className="col-xs-6">
+        <p className="lead">{lang('refund.check_amount')}</p>
+        <div className="table-responsive">
+          <table className="table">
+            <tbody>
+              <tr>
+                <th>{lang('refund.total_amount')}</th>
+                <td>{price(this.state.model.total_amount)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div className="row no-print">
+      <div className="col-xs-12">
+      </div>
+    </div>
+  </div>
+</section>
+);}
+
+export function cancel() { return (
+  <div>
+    <div className="callout callout-info" style={{marginBottom: "10px"}}>
+      <h4><i className="fa fa-info"></i> Note:</h4>
+      {lang('dangerous_warning')}
+    </div>
+    <Input type="textarea" name="comment" label={lang('refund.comment')} />
+  </div>
+);};
+
+export function refund() { return (
+  <div>
+    <div className="callout callout-info" style={{marginBottom: "10px"}}>
+      <h4><i className="fa fa-info"></i> Note:</h4>
+      {lang('dangerous_warning')}
+    </div>
+    <Input type="textarea" name="comment" label={lang('refund.comment')} />
+  </div>
+);}

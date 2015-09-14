@@ -1,0 +1,31 @@
+import Loader from 'lib/loader';
+import {Table, Column} from 'lib/table';
+import {Button} from 'react-bootstrap';
+import NotificationSystem from 'react-notification-system';
+import Message from 'pages/components/message';
+
+export default function (){ return (
+  <div className="box box-default">
+    <NotificationSystem ref="notifier" />
+    <Message ref="message" />
+    <div className="box-header with-border">
+      {this.renderTableButtons()}
+      {this.renderTableFilter()}
+    </div>
+    <div className="box-body no-padding">
+      <Loader loaded={this.state.table.loaded} className="loading-bar">
+        <Table rows={this.state.table.rows} rowKey="id" className="table table-hover table-striped">
+          {this.renderTableColumns()}
+        </Table>
+      </Loader>
+    </div>
+    <div className="box-footer no-padding">
+      <div className="mailbox-controls">
+        <div className="pull-right">
+          {this.renderTablePager()}
+        </div>
+      </div>
+    </div>
+    {this.renderChildren()}
+  </div>
+);}

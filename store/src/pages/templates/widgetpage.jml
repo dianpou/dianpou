@@ -1,0 +1,12 @@
+
+export default function () {return(
+  <div className="widgets-container" id="widgets_container">
+    {this.state.widgets.map((widget, index)=>{
+      return React.createElement(_.get(Widgets, widget.widget), Object.assign(widget, {
+        index:index,
+        key:index,
+        parent:this,
+      }));
+    })}
+  </div>
+);}

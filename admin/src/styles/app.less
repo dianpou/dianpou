@@ -1,0 +1,150 @@
+/* ===========GLOBAL========= */
+@import "sourceSansPro/sourceSans+Pro.css";
+div.Select.error .Select-control { border:1px solid red; }
+
+.loading-bar { margin:15px 0px; color:#777;  padding:10px; text-align:center; font-size:1.5em; }
+.loading-bar.mini { font-size:1em; border-width:0px; margin:0px; padding:5px; }
+.loading-bar.table { border-color:#f4f4f4; border-style:solid; border-width:1px 0px; }
+
+
+/*.aspect-ratio-image { display: table-cell; vertical-align: middle; text-align:center; border:1px solid #ccc; padding:1px; }*/
+.aspect-ratio-image { position:relative; display: inline-block; text-align:center; border:1px solid #f4f4f4; white-space: nowrap; padding:0px; }
+.aspect-ratio-image img { max-width:96%; max-height:96%; position:absolute; top:0; bottom:0; left:0; right:0; margin:auto; }
+
+.aspect-ratio-image.x-mini { height:48px; width:48px; line-height:48px; }
+.aspect-ratio-image.x-small { height:64px; width:64px; line-height:64px; }
+.aspect-ratio-image.x-medium { height:128px; width:128px; line-height:128px; }
+.aspect-ratio-image.x-large { height:256px; width:256px; line-height:256px; }
+
+
+.image-with-caption { position:relative; display:inline-block; }
+.image-with-caption .caption { width:100%; height:100%; position:absolute; display:none; top:0px; left:0px; background:rgba(0,0,0,0.7); }
+.image-with-caption .caption-center { text-align:center; vertical-align:middle; color:#fff; }
+
+/* ===========GLOBAL END========= */
+
+.files {
+  .dropzone { text-align:center; line-height:80px; font-size:2em; margin:5px; color:#eee; border-style:dashed; }
+  .list {
+    margin-top:15px;
+    display:flex;
+    flex-wrap: wrap;
+    .file {
+      margin:5px;
+      a {
+        color:#fff;
+        margin:5px;
+        font-size:2em;
+      }
+    }
+  }
+}
+
+/* ===========Product Form======= */
+
+/* Photo */
+.drop-zone { width:100%; height:160px; border:#eee 3px dashed; text-align:center; vertical-align: middle; line-height:160px; font-size:2em; color:#eee; }
+ul.photos { margin:0px; padding:0px; white-space:nowrap; }
+ul.photos>li { float:left; margin:0; padding:0; }
+ul.photos>li:first-child .x-medium { width:204px; height:205px; }
+ul.photos .x-medium { width:100px; height:100px; margin:2px; cursor: -moz-grab; cursor:-webkit-grab; background:#f7f7f7; }
+ul.photos .drop-place { display:inline-block; text-align:center; vertical-align:middle; cursor:pointer; background:#f7f7f7; border:#eee 1px dashed; line-height:100px; color:#ccc; font-size:4em; }
+ul.photos .image-with-caption .caption ul { position:absolute; bottom:0px; margin:auto; display:block; width:100%; height:30px; line-height:30px; }
+ul.photos .image-with-caption .caption ul li { display:inline-block; margin:3px; }
+ul.photos .image-with-caption .caption ul li a { color:#fff; }
+
+/* -----------Product Form------- */
+
+
+
+/* ----------- Category ------- */
+
+.category-level-0 { padding-left:0em; }
+.category-level-1 { padding-left:2em; }
+.category-level-2 { padding-left:4em; }
+.category-level-3 { padding-left:6em; }
+.category-level-4 { padding-left:8em; }
+.category-level-5 { padding-left:10em; }
+
+
+
+/* ----------- Order ------- */
+section.invoice { margin-top:0; }
+ul.order-logs {}
+  ul.order-logs li { margin-bottom:10px; padding:8px; }
+  ul.order-logs li h3 { font-size:1em; font-weight:normal; margin:0px 0px 5px 0px; }
+  ul.order-logs li .datetime { color:#777; }
+  ul.order-logs li div.meta { font-size:0.8em; }
+  ul.order-logs li:nth-child(even) { background:#f9f9f9; }
+
+
+
+/* ========== MESS ============ */
+.form-inline {display:inline;}
+.toolbar { text-align:right; }
+.pagination {margin:0px;}
+.box-body .table {margin:10px 0px;}
+
+.content-center {text-align:center;}
+.content-right {text-align:right;}
+.content-left {text-align:left;}
+
+.sortable-title { display:block; }
+.sortable-title i { float:right; }
+
+
+table .empty { font-size:2em; color:#ccc; font-weight:bold; padding:10px; }
+
+.loading { background:url(./img/loading.svg);
+           background-size:1em 1em;
+           background-repeat:no-repeat;
+           background-position:left center;
+           height:100%;
+           padding-left:1.5em;
+           display:inline-block; }
+
+form .required { /* todo */ }
+
+.form-group label .message { margin-left:1em; font-style:italic; font-size:0.8em; }
+
+.product-item .item-body p { margin-left:70px; }
+
+
+/* Product Photos */
+
+.product-options {}
+.product-options li { margin:5px 0px; padding:3px; }
+.product-options .price { color:green; font-weight:bold; }
+.product-options li:nth-child(even) { background:#f9f9f9; }
+.product-options li:nth-child(odd):hover { background:#f9f9f9; }
+.product-options li.disabled, .product-options li.disabled .price { color:gray; }
+.product-options .media-object {max-width:48px; max-height:48px; border:#ccc 1px solid; padding:1px;}
+.product-options li.add-new { text-align:center; color:#ccc; cursor:pointer; font-size:2em; background:#fff; border-top:#eee 1px dashed; margin-top:10px; }
+.product-options li.add-new:hover { background:#eee; }
+
+
+.option-editor { margin:5px; }
+
+.option-editor .option-add { margin-top:5px;}
+.option-editor .option-add a { display:block; background:#f7f7f7; text-align:center; font-size:1.5em; padding:5px 0px; color:#ccc; }
+.option-editor .option-add a:hover { background:#eee; }
+.option-editor input[type='text'].form-control {height:42px;}
+.option-editor a.remove-item-button { display:block; color:red; height:42px; font-size:1.1em; line-height:42px; text-align:center; vertical-align: middle; }
+.option-editor a.remove-button-disabled { color:#ccc; cursor:default; }
+.option-editor .react-tagsinput { width:95%; }
+.option-editor .react-tagsinput-tag a{ color:#638421; }
+
+.stock-editor { height:310px; }
+.stock-editor .scroll-page { width:570px; height:100%; padding:0px 0px; }
+.stock-editor .stock-cover { max-width:256px; max-height:256px; margin-bottom:10px; }
+
+#coverSelector ul {}
+#coverSelector ul li {float:left; margin:2px;}
+#coverSelector ul li .react-radio { }
+#coverSelector ul li .react-radio input { visibility: hidden; position: absolute; }
+#coverSelector ul li .react-radio input + .aspect-ratio-image { cursor:pointer; }
+#coverSelector ul li .react-radio input:checked + .aspect-ratio-image { border:1px solid #3c8dbc; }
+
+.scroll-scrollable { overflow-x:hidden; }
+.scroll-pages { width:2000px; position:relative; }
+.scroll-pages .scroll-page { float:left; position:relative;}

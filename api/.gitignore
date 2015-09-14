@@ -1,0 +1,7 @@
+/vendor
+/node_modules
+storage/app/*
+storage/framework/*
+storage/logs/*
+.env
+*.lock

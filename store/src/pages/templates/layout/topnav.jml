@@ -1,0 +1,22 @@
+import Header from '../../components/header';
+import NotificationSystem from 'react-notification-system';
+
+export default function(){ return (
+  <div className="wrapper">
+    <NotificationSystem ref="notifier" />
+    <Header user={this.user} navs={this.navs} bags={this.bags} location={this.props.location} ref="header" />
+    <div className="content-wrapper">
+      {this.template()}
+      {this.props.children && !this.disableChildren ? React.cloneElement(this.props.children, {parent:this}) : null}
+    </div>
+    <footer className="main-footer">
+      <div className="container">
+        <div className="pull-right hidden-xs">
+          <b>Version</b> 0.1.0
+        </div>
+        <strong>Copyright © 2014-2015 <a href="http://dianpou.com">Dianpou Inc</a>.</strong> All rights reserved.
+        <div className="hide" id="tracking_code"></div>
+      </div>
+    </footer>
+  </div>
+);}

@@ -1,0 +1,18 @@
+import {Modal, Button} from 'react-bootstrap';
+import {Form} from 'pages/components/form';
+
+export default function(){ return (
+  <Modal show={true} onHide={this.handleHide.bind(this)} {...this.modalProps}>
+    <Modal.Header closeButton>
+      <Modal.Title>{this.title}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <Form ref="form" onSubmit={this.handleSubmit.bind(this)} onValidSubmit={this.handleValidSubmit.bind(this)}>
+        {this.renderModalBody()}
+      </Form>
+    </Modal.Body>
+    <Modal.Footer>
+      {this.footer}
+    </Modal.Footer>
+  </Modal>
+);}

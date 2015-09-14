@@ -1,0 +1,181 @@
+import {Form, Input, Select, Button} from '../components/form';
+import Image from 'lib/image';
+import {lang, price, date} from 'lib/intl';
+
+export function show() {return (
+  <section className="invoice" style={{margin:0}}>
+    <div>
+      <div className="row">
+        <div className="col-xs-12">
+          <h2 className="page-header">
+            <i className="fa fa-globe"></i>
+            &nbsp;&nbsp;&nbsp;
+            {lang('order.status.'+this.state.model.order_status)}
+            <small className="pull-right">{lang('order.created_at')}:&nbsp;&nbsp;&nbsp;{date(this.state.model.created_at)}</small>
+          </h2>
+        </div>
+      </div>
+      <div className="row invoice-info">
+        <div className="col-sm-4 invoice-col">
+          <address>
+            <strong>{this.state.model.logistics_consignee}</strong><br />
+            {this.state.model.logistics_region}&nbsp;&nbsp;({this.state.model.logistics_zipcode})<br/>
+          {this.state.model.logistics_address}<br/>
+        {lang('address.mobile')}: {this.state.model.logistics_mobile}&nbsp;&nbsp;&nbsp;{this.state.model.logistics_phone}<br/>
+      {lang('address.email')}: {this.state.model.logistics_email}
+    </address>
+  </div>
+  <div className="col-sm-4 invoice-col">
+    <b>
+      {this.state.model.logistics.logistics_name}
+      {this.state.model.logistics_cod ? (<span>({lang('order.cod')})</span>): null}
+    </b><br/>
+    <br/>
+    <b>{lang('order.status.logistics')}:</b>&nbsp;&nbsp;{lang('order.status.'+this.state.model.logistics_status)}<br/>
+    <b>{lang('order.logistics_time')}:</b>&nbsp;&nbsp;{date(this.state.model.logistics_time) || 'N/A'}<br/>
+    <b>{lang('order.logistics_tracking_number')}:</b>&nbsp;&nbsp;{this.state.model.logistics_tracking_number || 'N/A'}
+    </div>
+    <div className="col-sm-4 invoice-col">
+      <b>{lang('order.sn')}&nbsp;&nbsp;&nbsp;#{this.state.model.sn}</b><br/>
+      <br/>
+      <b>{lang('order.user_id')}:</b>&nbsp;&nbsp;&nbsp;
+        <Link to="users.show" params={{id:this.state.model.user_id}}>
+          @{this.state.model.user.nickname}
+        </Link>
+        <br />
+        <b>{lang('order.id')}:</b>&nbsp;&nbsp;&nbsp;{this.state.model.id}<br/>
+      </div>
+    </div>
+
+
+    <div className="row">
+      <div className="col-xs-12 table-responsive">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>{lang('product.name')}</th>
+              <th width="130">{lang('product.sku')}</th>
+              <th width="90">{lang('bag.price')}</th>
+              <th width="90">{lang('bag.quantity')}</th>
+              <th width="90">{lang('bag.subtotal')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.model.products.map((product, i)=>{
+              return (
+                <tr key={i}>
+                  <td>
+                    <div className="media">
+                      <div className="media-left">
+                        <a href="#">
+                          <Image size="mini" src={product.cover} />
+                        </a>
+                      </div>
+                      <div className="media-body" style={{width:'auto'}}>
+                        <h4 className="media-heading">{product.product_name}</h4>
+                        {product.option}
+                      </div>
+                    </div>
+                  </td>
+                  <td vAlign="middle">{product.sku}</td>
+                  <td>{price(product.price)}</td>
+                  <td>{product.quantity}</td>
+                  <td>{price(product.price * product.quantity)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className="row">
+
+      <div className="col-xs-6">
+        <p className="lead">{lang('checkout.payment')}&nbsp;-&nbsp;{this.state.model.payment.payment_name}</p>
+        <p>
+          <b>{lang('order.status.payment')}:</b>&nbsp;&nbsp;{lang('order.status.'+this.state.model.payment_status)}<br/>
+          <b>{lang('order.payment_time')}:</b>&nbsp;&nbsp;{date(this.state.model.payment_time) || 'N/A'}<br/>
+        </p>
+        <p className="text-muted well well-sm no-shadow" style={{marginTop: '10px'}}>
+          {lang('order.payment_notice', {date:date(this.state.model.payment_due)})}
+        </p>
+      </div>
+      <div className="col-xs-6">
+        <p className="lead">{lang('order.total_amount')}</p>
+        <div className="table-responsive">
+          <table className="table">
+            <tbody>
+              <tr>
+                <td style={{width:"50%"}}>{lang('checkout.subtotal_product')}:</td>
+                <td>{price(this.state.model.subtotal_product)}</td>
+              </tr>
+              <tr>
+                <td>{lang('checkout.subtotal_logistics')}:</td>
+                <td>{price(this.state.model.subtotal_logistics)}</td>
+              </tr>
+              <tr>
+                <th>{lang('order.total_amount')}</th>
+                <td>{price(this.state.model.total_amount)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div className="row no-print">
+      <div className="col-xs-6">
+        <a href="invoice-print.html" target="_blank" className="btn btn-default"><i className="fa fa-print"></i>{lang('print')}</a>
+      </div>
+      <div className="col-xs-6 text-right">
+        {(this.state.model.order_status == 'pending' && this.state.model.payment_status == 'unpaid') ? (
+          <div>
+            <Link to={this.props.location.pathname + '/cancel'} className="btn btn-danger"><i className="fa fa-minus-circle"></i>&nbsp;{lang('order.cancel')}</Link>
+            &nbsp;
+            &nbsp;
+            {(!this.state.model.logistics_cod) ?(
+              <a href={this.api.cashier.extractUrlData('read', ['purchase', {}, {
+                  redirect:window.location.href + '?pay=success',
+                  access_token:localStorage.access_token,
+                  sn:this.state.model.sn}]).url} target="_blank" className="btn btn-primary">
+                <i className="fa fa-credit-card"></i>&nbsp;{lang('pay')}
+              </a>
+            ):null}
+          </div>
+        ):null}
+        &nbsp;
+        &nbsp;
+        {/*
+        {(this.state.model.order_status == 'pending' && this.state.model.payment_status == 'paid') ? (
+          <Link to={this.props.location.pathname + '/refund'} className="btn btn-danger"><i className="fa fa-money"></i>&nbsp;退款并取消订单</Link>
+        ):null}
+        */}
+        {(this.state.model.order_status == 'completed' && this.state.model.payment_status == 'paid') ? (
+          <Link to={this.props.location.pathname + '/refund'} className="btn btn-danger"><i className="fa fa-truck"></i>&nbsp;{lang('order.refund')}</Link>
+        ):null}
+      </div>
+    </div>
+    </div>
+    {this.renderChildren()}
+  </section>
+);}
+
+export function cancel() { return (
+  <div>
+    <div className="callout callout-info" style={{marginBottom: "10px"}}>
+      <h4><i className="fa fa-info"></i> Note:</h4>
+      {lang('order.cancel_warning')}
+    </div>
+    <Input type="textarea" name="comment" label={lang('order.comment')} />
+  </div>
+);};
+
+export function refund() { return (
+  <div>
+    <div className="callout callout-info" style={{marginBottom: "10px"}}>
+      <h4><i className="fa fa-info"></i> Note:</h4>
+      {lang('order.refund_warning')}
+    </div>
+    <Input type="textarea" name="comment" label={lang('order.comment')} />
+  </div>
+);}

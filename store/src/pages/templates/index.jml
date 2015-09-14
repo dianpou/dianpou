@@ -1,0 +1,28 @@
+import {Carousel, CarouselItem} from 'react-bootstrap';
+export default function(){ return (
+    <Carousel className="index-carousel">
+      <CarouselItem>
+        <div className="slide-item" style={{backgroundSize:"680px 419px", backgroundImage:"url(http://images.apple.com/v/home/bx/images/home_hero_iphone_medium_2x.png)"}}>
+          <div className='carousel-caption'>
+            <h3>iPhone 6</h3>
+          </div>
+        </div>
+      </CarouselItem>
+      <CarouselItem>
+        <div className="slide-item" style={{backgroundImage:"url(http://images.apple.com/v/home/bx/images/music_hero_medium_2x.jpg)"}}>
+          <div className='carousel-caption'>
+            <h3>Apple Music</h3>
+            <p>Free, three-month trial now available</p>
+          </div>
+        </div>
+      </CarouselItem>
+      <CarouselItem>
+        <div className="slide-item" style={{backgroundSize:"692px 224px", backgroundImage:"url(http://images.apple.com/v/home/bx/images/home_hero_watch_medium_2x.png)"}}>
+          <div className='carousel-caption'>
+            <h3>Apple Watch</h3>
+            <p>The Watch is here</p>
+          </div>
+        </div>
+      </CarouselItem>
+    </Carousel>
+);}

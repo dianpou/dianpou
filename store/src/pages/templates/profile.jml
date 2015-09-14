@@ -1,0 +1,38 @@
+import {Form, Input, Select, Button} from '../components/form';
+import Image from 'lib/image';
+import {lang, price, date} from 'lib/intl';
+
+export default function () {return (
+  <div>
+    <Form className="form-horizontal" onSubmit={this.handleBasicSubmit.bind(this)} onValidSubmit={this.handleBasicValidSubmit.bind(this)} ref="basic_form">
+      <div className="box box-default">
+        <div className="box-body">
+            <fieldset>
+              <legend><i className="fa fa-file-text-o"></i>&nbsp;{lang('profile.basic')}</legend>
+              <Input type="text" label={lang('profile.name')} name="name" valueLink={this.linkStateDeep('model.name')} labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+              <Input type="text" label={lang('profile.nickname')} name="nickname" valueLink={this.linkStateDeep('model.nickname')} labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+              <Input type="text" label={lang('profile.avatar')} name="avatar" valueLink={this.linkStateDeep('model.avatar')} labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+            </fieldset>
+        </div>
+        <div className="box-footer with-border text-right">
+          <Button type="submit"><i className="fa fa-pencil"></i>&nbsp; {lang('update')}</Button>
+        </div>
+      </div>
+    </Form>
+    <Form className="form-horizontal" ref="secret_form">
+      <div className="box box-danger">
+        <div className="box-body">
+            <fieldset>
+              <legend><i className="fa fa-gear"></i>&nbsp;{lang('profile.security')}</legend>
+              <Input type="text" label={lang('profile.old_password')} name="old_password" labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+              <Input type="text" label={lang('profile.new_password')} name="new_password" labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+              <Input type="text" label={lang('profile.confirm_password')} name="password_confirm" labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
+            </fieldset>
+        </div>
+        <div className="box-footer with-border text-right">
+          <Button type="submit"><i className="fa fa-gear"></i>&nbsp;{lang('update')}</Button>
+        </div>
+      </div>
+    </Form>
+  </div>
+);}

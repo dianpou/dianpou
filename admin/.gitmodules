@@ -1,0 +1,3 @@
+[submodule "vendor/AdminLTE"]
+	path = vendor/AdminLTE
+	url = https://github.com/almasaeed2010/AdminLTE.git

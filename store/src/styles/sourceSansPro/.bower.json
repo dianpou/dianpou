@@ -1,0 +1,11 @@
+{
+  "name": "sourceSansPro",
+  "_cacheHeaders": {
+    "Content-Type": "application/octet-stream",
+    "Content-Disposition": "attachment; filename=sourceSans+Pro.zip"
+  },
+  "main": "index",
+  "_source": "https://google-fonts.azurewebsites.net/googleFonts/sourceSansPro?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic",
+  "_target": "*",
+  "_originalSource": "https://google-fonts.azurewebsites.net/googleFonts/sourceSansPro?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"
+}

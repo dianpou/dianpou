@@ -1,0 +1,67 @@
+import {Button} from 'react-bootstrap';
+import Image from 'lib/image';
+import {Table, Column} from 'lib/table';
+import Loader from 'lib/loader';
+import {Form, Input, Select} from '../components/form';
+import Formsy from 'formsy-react';
+import {Form as AddressForm} from '../address';
+
+export default function(){ return (
+  <div>
+    <div className="box box-widget widget-user">
+
+      <div className="widget-user-header bg-aqua-active">
+        <h3 className="widget-user-username">{User.name}</h3>
+        {/*<h5 className="widget-user-desc">Founder &amp; CEO</h5>*/}
+      </div>
+      <div className="widget-user-image">
+        <img className="img-circle" src={User.avatar} alt="User Avatar" />
+        </div>
+        <div className="box-footer">
+          <div className="row">
+            <div className="col-sm-4 border-right">
+              <div className="description-block">
+                <h5 className="description-header"><Link to="/home/orders">{this.state.stats.order}</Link></h5>
+                <span className="description-text">{lang('dashboard.order')}</span>
+              </div>
+            </div>
+            <div className="col-sm-4 border-right">
+              <div className="description-block">
+                <h5 className="description-header"><Link to="/home/refunds">{this.state.stats.refund}</Link></h5>
+                <span className="description-text">{lang('dashboard.refund')}</span>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="description-block">
+                <h5 className="description-header"><Link to="/home/addresses">{this.state.stats.address}</Link></h5>
+                <span className="description-text">{lang('dashboard.address')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="box box-info">
+        <div className="box-header with-border">
+          <h3 className="box-title">{lang('dashboard.latest_order')}</h3>
+        </div>
+        <div className="box-body">
+          <div className="table-responsive">
+            <Loader loaded={this.state.latest_orders.loaded} className="loading-bar">
+              <Table rows={this.state.latest_orders.items} rowKey="id" className="table no-margin">
+                <Column width="100" title={lang('order.sn')}>{row=>(<Link to={"/home/orders/"+row.sn}>{row.sn}</Link>)}</Column>
+                <Column width="100" title={lang('order.status.name')}>{row=>lang('order.status.' + row.order_status)}</Column>
+                <Column width="120" title={lang('order.status.payment')}>{row=>lang('order.status.' + row.payment_status)}</Column>
+                <Column width="120" title={lang('order.total_amount')}>{row=>price(row.total_amount)}</Column>
+                <Column title={lang('address.consignee')}>{row=>row.logistics_consignee}</Column>
+                <Column width="150" title={lang('order.created_at')}>{row=>date(row.created_at)}</Column>
+              </Table>
+            </Loader>
+          </div>
+        </div>
+        <div className="box-footer clearfix">
+          <Link to="/home/orders" className="btn btn-sm btn-default btn-flat pull-right">{lang('dashboard.view_all_orders')}</Link>
+        </div>
+      </div>
+    </div>
+);}

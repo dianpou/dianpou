@@ -1,0 +1,19 @@
+import {Form, Input, Select, Button} from '../components/form';
+import {lang, price, date} from 'lib/intl';
+
+export function index (){ return (
+  <div>index</div>
+);}
+
+export function form() { return (
+  <div>
+    <Input type="text" name="consignee" required valueLink={this.linkStateDeep('model.consignee')} label={lang('address.consignee')} />
+    <Input type="text" name="address" required label={lang('address.address')} valueLink={this.linkStateDeep('model.address')} />
+    <Input type="text" name="region" required valueLink={this.linkStateDeep('model.region')} placeholder={lang('address.region_placeholder')} label={lang('address.region')} />
+    <Input type="text" name="zipcode" label={lang('address.zipcode')} valueLink={this.linkStateDeep('model.zipcode')} />
+    <Input type="text" name="mobile" label={lang('address.mobile')} valueLink={this.linkStateDeep('model.mobile')} />
+    <Input type="text" name="phone" label={lang('address.phone')} valueLink={this.linkStateDeep('model.phone')} />
+    <Input type="text" name="email" label={lang('address.email')} valueLink={this.linkStateDeep('model.email')} />
+    <button type="submit" className="hide"></button>
+  </div>
+);}

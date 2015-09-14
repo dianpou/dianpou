@@ -1,0 +1,63 @@
+import {Form, Input, Button} from '../components/form';
+import config from 'config';
+export default function(){ return (
+  <div className="container">
+    <section className="content-header">
+      <h1>
+        {lang('signin')}
+        <small>{lang('session.signin_first')}</small>
+      </h1>
+    </section>
+    <section className="content">
+      <div className="row">
+        <div className="col-xs-6">
+          <div className="box box-default">
+            <div className="box-header">
+              <h3 className="box-title">{lang('session.already_member')}</h3>
+            </div>
+            <div className="box-body">
+              <Form className="form-horizontal" onValidSubmit={this.handleSigninSubmit.bind(this)}>
+                <Input type="text" name="username" label={lang('session.username')} required placeholder={lang('session.username')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <Input type="password" name="password" label={lang('session.password')} required placeholder={lang('session.password')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <div className="text-right">
+                  <a href="#" className="pull-left">{lang('session.forget_password')}</a>
+                  <Button type="submit" pending={this.state.signingIn}>
+                    {lang('signin')}
+                  </Button>
+                </div>
+                <div className="strike" style={{fontSize:"2em", color:"#ccc", margin:"10px 0px"}}>
+                  <span>OR</span>
+                </div>
+                <div className="signin-social-buttons">
+                  {/*<a href={"http://api.dianpou.dev/auth/weibo?redirect=http://dianpou.dev/session/openid"}><i className="fa fa-weibo"></i></a>*/}
+                  <a href={this.api.auth.extractUrlData('read', ['github', {}, {redirect:config.domain + '/session/openid'}]).url}><i className="fa fa-github"></i></a>
+                  <a href={this.api.auth.extractUrlData('read', ['facebook', {}, {redirect:config.domain + '/session/openid'}]).url}><i className="ion-social-facebook"></i></a>
+                  <a href={this.api.auth.extractUrlData('read', ['twitter', {}, {redirect:config.domain + '/session/openid'}]).url}><i className="ion-social-twitter"></i></a>
+                </div>
+              </Form>
+            </div>
+          </div>
+        </div>
+        <div className="col-xs-6">
+          <div className="box box-default">
+            <div className="box-header">
+              <h3 className="box-title">{lang('session.new_member')}</h3>
+            </div>
+            <div className="box-body">
+              <Form className="form-horizontal" onValidSubmit={this.handleSignupSubmit.bind(this)}>
+                <Input type="text" required name="username" label={lang('session.username')} placeholder={lang('session.username_placeholder')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <Input type="password" required name="password" label={lang('session.password')} placeholder={lang('session.password_placeholder')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <Input type="password" name="password_confirm" label="&nbsp;" placeholder={lang('session.password_confirm')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <Input type="text" name="email" required label={lang('session.email')} placeholder={lang('session.email_placeholder')} labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                <hr />
+                <div className="text-right">
+                  <Button type="submit" pending={this.state.singingUp}>{lang('signup')}</Button>
+                </div>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+);}

@@ -1,0 +1,10 @@
+/vendor
+/node_modules
+/bower_components
+/api/public/assets
+/admin/dist
+/admin/src/config.js
+/store/dist
+/store/src/config.js
+npm-debug.log
+

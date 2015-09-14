@@ -1,0 +1,155 @@
+import {Button} from 'react-bootstrap';
+import Image from 'lib/image';
+import {Table, Column} from 'lib/table';
+import Loader from 'lib/loader';
+import {Form, Input, Select} from '../components/form';
+import Formsy from 'formsy-react';
+import {Form as AddressForm} from '../address';
+import {lang, price, date} from 'lib/intl';
+
+export default function(){ return (
+  <div className="container checkout-page">
+    <section className="content-header">
+      <h1>
+        {lang('checkout.title')}
+        <small dangerouslySetInnerHTML={{__html:lang('checkout.subtitle', {total:this.state.bags.items.length})}}></small>
+      </h1>
+    </section>
+    <Form className='form-horizontal'>
+    <section className="content">
+      <div className="box box-default">
+        <div className="box-body">
+          <fieldset>
+            <legend>{lang('address.consignee')}
+              <Link to="/checkout/consignee" className="pull-right" style={{fontSize:"15px"}}>{lang('checkout.use_new_address')}</Link>
+            </legend>
+            <Loader loaded={this.state.addresses.loaded} className="loading-bar">
+              {this.state.addresses.items.length === 0 ? (
+                <div className="address-empty">
+                  <Link to="checkout/consignee">{lang('checkout.use_new_address')}</Link>
+                </div>
+              ):(
+                <div className="checkout-consignees">
+                  <RadioGroup onChange={this.handleAddressChange.bind(this)} selectedValue={this.state.address_id}>
+                    {Radio => (
+                      <div className="addresses">
+                        {this.state.addresses.items.map((address, i)=>{
+                          return (
+                            <label key={i}>
+                              <address className={classNames({"checked":(this.state.address_id == address.id)})}>
+                                <Radio value={address.id} className="hide" />
+                                <strong>{address.consignee}</strong><br />
+                                {address.region}<br />
+                                {address.address}<br />
+                              {lang('address.mobile')}: {address.mobile}<br />
+                            {lang('address.email')}: {address.phone}
+                              </address>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </RadioGroup>
+                </div>
+              )}
+            </Loader>
+          </fieldset>
+          <hr />
+          <Loader loaded={this.state.bags.loaded} className="loading-bar table">
+            <Table rows={this.state.bags.items} rowKey="id" className="table table-striped">
+              <Column title={lang('product.name')}>
+                {row=>(
+                  <div className="media">
+                    <div className="media-left">
+                      <a href="#">
+                        <Image src={_.get(row, 'stock.cover.file.file_path')} size="mini" />
+                      </a>
+                    </div>
+                    <div className="media-body">
+                      <h4 className="media-heading">{row.product.product_name}</h4>
+                      <p>{row.stock.option}</p>
+                    </div>
+                  </div>
+                )}
+              </Column>
+              <Column title={lang('bag.quantity')} width="100">
+                {row=>row.quantity}
+              </Column>
+              <Column title={lang('bag.price')} width="100">
+                {row=>price(row.stock.price)}
+              </Column>
+              <Column title={lang('bag.subtotal')} width="100">
+                {row=>price(row.stock.price * row.quantity)}
+              </Column>
+            </Table>
+          </Loader>
+          <div className="row">
+            <div className="col-xs-4">
+              <p className="lead">{lang('checkout.shipping')}</p>
+              <RadioGroup name="logistics_id" onChange={this.handleLogisticsChange.bind(this)} selectedValue={this.state.order.logistics_id}>
+                {Radio => (
+                  <div className="logistics">
+                    {this.state.logistics.items.map((logistics, i)=>{
+                      return (
+                        <label key={i} className={classNames({checked:(this.state.order.logistics_id==logistics.id)})}>
+                          <Radio value={logistics.id} className="hide" />
+                          <span>{logistics.logistics_name}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              </RadioGroup>
+              <div className="desc">
+                {this.state.order.logistics_id ? (_.find(this.state.logistics.items, {id:this.state.order.logistics_id}) || {}).logistics_desc : lang('checkout.select_logistics_please')}
+              </div>
+            </div>
+            <div className="col-xs-4">
+              <p className="lead">{lang('checkout.payment')}</p>
+              <RadioGroup name="payment_id" onChange={this.handlePaymentChange.bind(this)} selectedValue={this.state.order.payment_id}>
+                {Radio => (
+                  <div className="payments">
+                    {this.state.payments.items.map((payment, i)=>{
+                      return (
+                        <label key={i} className={classNames({checked:(this.state.order.payment_id==payment.id)})}>
+                          <Radio value={payment.id} className="hide" />
+                          <img src={payment.logo} />
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              </RadioGroup>
+              <div className="desc">
+                {this.state.order.payment_id ? (_.find(this.state.payments.items, {id:this.state.order.payment_id}) || {}).payment_desc : lang('checkout.select_payment_please')}
+              </div>
+            </div>
+            <div className="col-xs-4">
+              <p className="lead">{lang("checkout.check_amount")}</p>
+              <div className="table-responsive text-right">
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <th style={{width:"50%"}}>{lang("checkout.subtotal_product")}:</th>
+                      <td>{price(this.subtotalProduct)}</td>
+                    </tr>
+                    <tr>
+                      <th>{lang('checkout.subtotal_logistics')}:</th>
+                      <td>{price(this.subtotalLogistics)}</td>
+                    </tr>
+                    <tr>
+                      <th>{lang('checkout.total_amount')}:</th>
+                      <td>{price(this.totalAmount)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <Button bsSize="large" bsStyle="primary" disabled={this.state.disabled} onClick={this.handleOrderSubmit.bind(this)} block>&nbsp;&nbsp;{lang('checkout.place_order')}&nbsp;&nbsp;</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Form>
+  </div>
+);}
