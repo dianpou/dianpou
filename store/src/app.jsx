@@ -13,7 +13,6 @@ window.lang = lang;
 window.price = price;
 window.date = date;
 
-
 import routes from './routes';
 import scriptjs from 'scriptjs';
 
